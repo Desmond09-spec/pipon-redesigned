@@ -740,8 +740,38 @@ button, input { font: inherit; }
 
 @media (max-width: 767px) {
   .nav { grid-template-columns: 1fr auto; }
+  /* .nav is its own stacking context (z-index 50); the full-screen menu is 70,
+     so the burger could never be tapped to close the menu. Lift the nav above
+     the overlay only while it is open. */
+  body.menu-open .nav { z-index: 90; }
   .nav__pill { display: none; }
   .nav__spacer { display: none; }
+
+  /* iOS-style liquid-glass capsule around the left-side brand content only.
+     The fixed nav crosses dark sections (join / footer), where the ink wordmark
+     vanishes against the background. A translucent frosted surface restores
+     contrast without turning the nav into a solid bar — the three dots and the
+     wordmark stay on paper, and the dark burger keeps its own contrast. */
+  .nav__logo {
+    min-height: 44px; /* match the 44px burger so both ends align */
+    padding: 9px 15px 9px 13px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .72);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, .75);
+    box-shadow:
+      0 8px 26px rgba(27, 25, 23, .13),
+      inset 0 1px 0 rgba(255, 255, 255, .9),
+      inset 0 0 0 1px rgba(27, 25, 23, .05);
+    transition: background-color .3s var(--ease-std), box-shadow .3s var(--ease-std);
+  }
+  /* No backdrop-filter (older browsers): fall back to a near-opaque surface so
+     the dark wordmark never sits directly on a dark section. */
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .nav__logo { background: rgba(255, 255, 255, .94); }
+  }
+
   .nav__burger {
     justify-self: end;
     display: grid;
