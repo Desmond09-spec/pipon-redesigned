@@ -1,35 +1,88 @@
 import { useEffect, useRef, useState } from 'react';
 
-/* ---------------------------------- shared SVG --------------------------------- */
+/* ---------------------------------- hero variants ----------------------------- */
 
-function GradientDefs() {
+const HERO_VARIANTS = ['original', 'reaim', 'brand'];
+const DEFAULT_VARIANT = 'brand';
+
+function useHeroVariant() {
+  const read = () => {
+    const value = new URLSearchParams(window.location.search).get('hero');
+    return HERO_VARIANTS.includes(value) ? value : DEFAULT_VARIANT;
+  };
+  const [variant, setVariant] = useState(read);
+  const [compare] = useState(
+    () => new URLSearchParams(window.location.search).get('compare') === '1'
+  );
+
+  const select = (next) => {
+    const url = new URL(window.location.href);
+    if (next === DEFAULT_VARIANT) url.searchParams.delete('hero');
+    else url.searchParams.set('hero', next);
+    window.history.replaceState({}, '', url);
+    setVariant(next);
+  };
+  return { variant, compare, select };
+}
+
+function usePortrait() {
+  const [portrait, setPortrait] = useState(
+    () => window.matchMedia('(max-width: 1023px)').matches
+  );
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 1023px)');
+    const onChange = (event) => setPortrait(event.matches);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
+  return portrait;
+}
+
+function HeroSwitcher({ variant, select }) {
   return (
-    <svg className="svg-defs" width="0" height="0" aria-hidden="true" focusable="false">
-      <defs>
-        <linearGradient id="pip-grad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#7B5BE8" />
-          <stop offset="0.34" stopColor="#E86A9A" />
-          <stop offset="0.66" stopColor="#F2B45C" />
-          <stop offset="1" stopColor="#5BC9C0" />
-        </linearGradient>
-      </defs>
-    </svg>
+    <div className="hero-switcher" role="group" aria-label="Hero variant">
+      <span className="hero-switcher__label">Hero</span>
+      {HERO_VARIANTS.map((value) => (
+        <button
+          key={value}
+          type="button"
+          className={`hero-switcher__btn${variant === value ? ' is-active' : ''}`}
+          aria-pressed={variant === value}
+          onClick={() => select(value)}
+        >
+          {value}
+        </button>
+      ))}
+    </div>
   );
 }
 
-function Spark({ size = 20, className = '', style }) {
+/* ---------------------------------- shared SVG --------------------------------- */
+
+/* The Pipon mark is just three flat orange dots in the 2-up / 1-down triangle —
+   no squircle, no plate, no background. Geometry measured from the 128px source
+   logo: centres (46,47), (88,47), (67,85), radius 11.5. No gradients anywhere.
+   The generous 128 viewBox keeps the dots floating on their field; the nav and
+   footer use the cropped viewBox so the mark reads at 20px. */
+function PipMark({
+  size = 20,
+  className = '',
+  style,
+  crop = false,
+  tone = 'accent',
+}) {
+  const dot = tone === 'paper' ? '#FBF9F4' : '#E8532F';
   return (
     <svg
       className={className}
       style={{ width: size, height: size, ...style }}
-      viewBox="0 0 100 100"
+      viewBox={crop ? '29 28 76 76' : '0 0 128 128'}
       aria-hidden="true"
       focusable="false"
     >
-      <path
-        d="M50 3C53.5 28 60 34.5 97 50 60 65.5 53.5 72 50 97 46.5 72 40 65.5 3 50 40 34.5 46.5 28 50 3Z"
-        fill="url(#pip-grad)"
-      />
+      <circle cx="46" cy="47" r="11.5" fill={dot} />
+      <circle cx="88" cy="47" r="11.5" fill={dot} />
+      <circle cx="67" cy="85" r="11.5" fill={dot} />
     </svg>
   );
 }
@@ -197,7 +250,7 @@ function Nav() {
     <>
       <header className={`nav${scrolled ? ' is-scrolled' : ''}`}>
         <a className="nav__logo" href="#top" aria-label="Pipon home">
-          <Spark size={17} className="nav__mark" />
+          <PipMark size={22} crop className="nav__mark" />
           <span className="nav__word">pipon</span>
           <span className="nav__sup" aria-hidden="true" />
         </a>
@@ -241,18 +294,30 @@ function Nav() {
 
 /* ---------------------------------- hero -------------------------------------- */
 
-function Hero() {
+function Hero({ variant }) {
+  const portrait = usePortrait();
+  const media = variant === 'brand'
+    ? (portrait
+        ? { src: '/pips-portrait.mp4', poster: '/pips-portrait-poster.jpg' }
+        : { src: '/pips.mp4', poster: '/pips-poster.jpg' })
+    : { src: '/spark.mp4', poster: '/spark-poster.jpg' };
+
   return (
-    <section className="hero" id="top">
+    <section className={`hero hero--${variant}`} id="top">
       <div className="hero__media">
-        <CinematicVideo src="/spark.mp4" poster="/spark-poster.jpg" className="hero__video" />
+        <CinematicVideo
+          key={media.src}
+          src={media.src}
+          poster={media.poster}
+          className="hero__video"
+        />
       </div>
 
       <div className="hero__copy">
         <div className="trust in-fade" style={{ '--d': '120ms' }}>
-          <span className="trust__coin" style={{ background: 'linear-gradient(135deg,#F2B45C,#E86A9A)' }}>M</span>
-          <span className="trust__coin" style={{ background: 'linear-gradient(135deg,#7B5BE8,#5BC9C0)' }}>A</span>
-          <span className="trust__coin" style={{ background: 'linear-gradient(135deg,#E8532F,#F2B45C)' }}>J</span>
+          <span className="trust__coin" style={{ background: WARM[4] }}>M</span>
+          <span className="trust__coin" style={{ background: WARM[1] }}>A</span>
+          <span className="trust__coin" style={{ background: WARM[0] }}>J</span>
           <span className="trust__pill">12k+ curious minds already here</span>
         </div>
 
@@ -293,17 +358,26 @@ function Hero() {
 
 /* ---------------------------------- marquee ----------------------------------- */
 
+/* One accent, tonal variation only. No purple, teal or pink anywhere. */
+const WARM = [
+  'linear-gradient(135deg,#F2A65A,#E8532F)',
+  'linear-gradient(135deg,#E8532F,#B03B1B)',
+  'linear-gradient(135deg,#EFC3A4,#C65B26)',
+  'linear-gradient(135deg,#B85C3C,#E8532F)',
+  'linear-gradient(135deg,#F2C79B,#B85C3C)',
+];
+
 const FEED_POSTS = [
-  { initial: 'N', text: 'Octopuses have three hearts. I need everyone to know.', tag: 'discoveries', grad: 'linear-gradient(135deg,#7B5BE8,#C6B2F5)' },
-  { initial: 'L', text: "my sourdough finally rose and I'm weirdly emotional", tag: 'making', grad: 'linear-gradient(135deg,#F2B45C,#E8532F)' },
-  { initial: 'R', text: "What's a song that changed your mind about something?", tag: 'questions', grad: 'linear-gradient(135deg,#5BC9C0,#7B5BE8)' },
-  { initial: 'T', text: "Sketching a logo for a friend's pottery studio", tag: 'creating', grad: 'linear-gradient(135deg,#E86A9A,#F2B45C)' },
-  { initial: 'K', text: 'Why do the best ideas show up at 2am?', tag: 'thoughts', grad: 'linear-gradient(135deg,#E8532F,#E86A9A)' },
-  { initial: 'P', text: 'Made a tiny zine about the clouds in my city', tag: 'creating', grad: 'linear-gradient(135deg,#9BC7E8,#5BC9C0)' },
-  { initial: 'E', text: 'Hot take: every library should have a nap corner', tag: 'thoughts', grad: 'linear-gradient(135deg,#F2B45C,#7B5BE8)' },
-  { initial: 'B', text: 'Learning to identify birds by sound. Today: a wren.', tag: 'discoveries', grad: 'linear-gradient(135deg,#5BC9C0,#F2B45C)' },
-  { initial: 'C', text: 'Three days into building a browser extension', tag: 'making', grad: 'linear-gradient(135deg,#7B5BE8,#E8532F)' },
-  { initial: 'S', text: 'Someone left a note in a used book and it made my week', tag: 'thoughts', grad: 'linear-gradient(135deg,#E86A9A,#5BC9C0)' },
+  { initial: 'N', text: 'Octopuses have three hearts. I need everyone to know.', tag: 'discoveries', grad: WARM[0] },
+  { initial: 'L', text: "my sourdough finally rose and I'm weirdly emotional", tag: 'making', grad: WARM[3] },
+  { initial: 'R', text: "What's a song that changed your mind about something?", tag: 'questions', grad: WARM[2] },
+  { initial: 'T', text: "Sketching a logo for a friend's pottery studio", tag: 'creating', grad: WARM[4] },
+  { initial: 'K', text: 'Why do the best ideas show up at 2am?', tag: 'thoughts', grad: WARM[1] },
+  { initial: 'P', text: 'Made a tiny zine about the clouds in my city', tag: 'creating', grad: WARM[3] },
+  { initial: 'E', text: 'Hot take: every library should have a nap corner', tag: 'thoughts', grad: WARM[0] },
+  { initial: 'B', text: 'Learning to identify birds by sound. Today: a wren.', tag: 'discoveries', grad: WARM[2] },
+  { initial: 'C', text: 'Three days into building a browser extension', tag: 'making', grad: WARM[1] },
+  { initial: 'S', text: 'Someone left a note in a used book and it made my week', tag: 'thoughts', grad: WARM[4] },
 ];
 
 function LiveMarquee() {
@@ -360,19 +434,19 @@ function LiveMarquee() {
 const SMALL_PIPS = [
   {
     initial: 'D', name: 'Devon Park', handle: '@devon · 18m',
-    grad: 'linear-gradient(135deg,#7B5BE8,#C6B2F5)',
+    grad: WARM[2],
     text: "Built a tiny browser extension that hides the word 'productivity' from my tabs. Highly recommend.",
     tag: '#making', likes: 46, replies: 9,
   },
   {
     initial: 'A', name: 'Ayo Bello', handle: '@ayo · 1h',
-    grad: 'linear-gradient(135deg,#F2B45C,#E8532F)',
+    grad: WARM[0],
     text: "Question: what's a small thing in your neighbourhood that makes you unreasonably happy?",
     tag: '#discoveries', likes: 212, replies: 63,
   },
   {
     initial: 'S', name: 'Sana Iqbal', handle: '@sana · 3h',
-    grad: 'linear-gradient(135deg,#5BC9C0,#7B5BE8)',
+    grad: WARM[1],
     text: 'Day 4 of the linocut. The ink finally behaved.',
     tag: '#creating', likes: 88, replies: 12,
   },
@@ -421,8 +495,8 @@ function PipShowcase() {
 
         <div className="showcase">
           <article className="pip pip--featured glass" data-reveal style={{ '--y': '50px', '--dur': '.9s' }}>
-            <Spark size={300} className="pip__watermark" />
-            <PipCardHeader initial="M" name="Mira Okafor" handle="@mira · 2h" grad="linear-gradient(135deg,#E86A9A,#F2B45C)" size="lg" />
+            <PipMark size={300} className="pip__watermark" />
+            <PipCardHeader initial="M" name="Mira Okafor" handle="@mira · 2h" grad={WARM[3]} size="lg" />
             <p className="pip__quote">
               Finally put words to something I've felt for ages: the best conversations happen
               when nobody's trying to win.
@@ -544,7 +618,7 @@ function JoinCTA() {
 
   return (
     <section className="join" id="join">
-      <Spark size={520} className="join__watermark" />
+      <PipMark size={520} className="join__watermark" />
       <div className="wrap join__inner">
         <p className="eyebrow eyebrow--light" data-reveal>COMING SOON</p>
         <h2 className="join__h2" data-reveal style={{ '--d': '100ms', '--y': '34px' }}>
@@ -591,7 +665,7 @@ function Footer() {
       <div className="wrap">
         <div className="footer__top">
           <a className="footer__logo" href="#top" aria-label="Pipon home">
-            <Spark size={17} />
+            <PipMark size={22} crop />
             <span>pipon</span>
           </a>
           <div className="footer__cols">
@@ -616,14 +690,14 @@ function Footer() {
 
 export default function App() {
   useScrollReveals();
+  const { variant, compare, select } = useHeroVariant();
 
   return (
     <>
-      <GradientDefs />
       <div className="page-grain" aria-hidden="true" />
       <Nav />
       <main>
-        <Hero />
+        <Hero variant={variant} />
         <LiveMarquee />
         <PipShowcase />
         <ThreadsSection />
@@ -631,6 +705,7 @@ export default function App() {
         <JoinCTA />
       </main>
       <Footer />
+      {compare && <HeroSwitcher variant={variant} select={select} />}
     </>
   );
 }

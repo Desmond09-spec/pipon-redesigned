@@ -1,6 +1,6 @@
 /* =============================================================================
    Pipon — A place for small thoughts
-   Warm paper + ink, one vermilion accent, one iridescent spark motif.
+   Warm paper + ink, one vermilion accent, one three-dot brand mark.
    ============================================================================= */
 
 :root {
@@ -43,7 +43,6 @@ body {
 a { color: inherit; }
 button, input { font: inherit; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
-.svg-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
 
 .wrap { width: 100%; max-width: 1200px; margin: 0 auto; padding-inline: clamp(20px, 5vw, 64px); }
 
@@ -471,7 +470,7 @@ button, input { font: inherit; }
 }
 .pip:hover { transform: translateY(-4px); box-shadow: 0 18px 46px rgba(27, 25, 23, .1); }
 .pip--featured { min-height: 420px; border-radius: 32px; }
-.pip__watermark { position: absolute; top: -70px; right: -60px; opacity: .13; pointer-events: none; }
+.pip__watermark { position: absolute; top: -70px; right: -60px; opacity: .09; pointer-events: none; }
 .pip__head { position: relative; display: flex; align-items: center; gap: 12px; }
 .pip__avatar { display: grid; place-items: center; border-radius: 50%; color: #fff; font-weight: 700; flex: none; }
 .pip__avatar--sm { width: 34px; height: 34px; font-size: 12px; }
@@ -637,7 +636,9 @@ button, input { font: inherit; }
   padding: clamp(96px, 12vw, 164px) 0 0;
   isolation: isolate;
 }
-.join__watermark { position: absolute; left: 50%; top: 42%; transform: translate(-50%, -50%); opacity: .14; pointer-events: none; }
+/* A whisper of the three-dot mark, in the single accent hue. Kept this low so
+   it never competes with the headline on the dark plane (see review.md polish). */
+.join__watermark { position: absolute; left: 50%; top: 42%; transform: translate(-50%, -50%); opacity: .055; pointer-events: none; }
 .join__inner { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; text-align: center; }
 .join__h2 {
   margin: 0;
@@ -822,8 +823,8 @@ button, input { font: inherit; }
   .voices { border-radius: 32px 32px 0 0; margin-top: -28px; min-height: 78vh; }
   .voices__h2 { font-size: clamp(36px, 9vw, 52px); }
   .voices__body { font-size: 15px; }
-  /* Keep the iridescent watermark subtle behind the featured Pip's text on small cards. */
-  .pip__watermark { transform: scale(.62); transform-origin: top right; opacity: .1; }
+  /* Keep the three-dot watermark subtle behind the featured Pip's text on small cards. */
+  .pip__watermark { transform: scale(.62); transform-origin: top right; opacity: .07; }
 
   .step__toggle { grid-template-columns: 52px 1fr 20px; gap: 14px; padding: 22px 0; }
   .step__n { font-size: 30px; }
@@ -855,6 +856,96 @@ button, input { font: inherit; }
 @media (hover: none) {
   .pip:hover { transform: none; box-shadow: var(--glass-shadow); }
   .btn-fill:hover { box-shadow: 0 4px 14px rgba(232, 83, 47, .18); }
+}
+
+/* ------------------------------ hero variants ------------------------------- */
+/* ?hero=brand is the shipping hero. The two earlier directions stay reachable
+   for comparison: ?hero=original (first delivered spark) and ?hero=reaim
+   (shelf clip with the mobile crop corrected). Nothing below the fold changes.
+   ?compare=1 adds a small live switcher for design review. */
+
+/* brand — the clip's edge colour IS the page background, so no scrim at all. */
+.hero--brand .hero__media::after { display: none; }
+.hero--brand .hero__video { object-position: 29% center; }
+
+/* preview-only live switcher (never rendered in the shipped design) */
+.hero-switcher {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  z-index: 110;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 5px 5px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(27, 25, 23, .12);
+  background: rgba(255, 255, 255, .88);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 8px 28px rgba(27, 25, 23, .14);
+}
+.hero-switcher__label {
+  margin-right: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+.hero-switcher__btn {
+  padding: 7px 13px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color .25s, color .25s;
+}
+.hero-switcher__btn:hover { color: var(--fg); }
+.hero-switcher__btn.is-active { background: var(--accent); color: #fff; }
+
+@media (max-width: 1023px) {
+  /* brand — full-bleed field. The clip is born with an empty lower band, so
+     the headline lives INSIDE the media with zero overlay and zero seam. */
+  .hero--brand .hero__media {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+  }
+  .hero--brand .hero__copy { padding-top: 47vh; padding-bottom: 56px; }
+  .hero--brand .hero__media::after { display: none; }
+  .hero--brand .hero__video { object-position: 50% 8%; }
+
+  /* reaim — keep the shelf clip but stop treating it as a box pinned to the
+     top: off-centre crop, no fade seam, and the copy plane trespasses 76px
+     into the media. Because #12's edges already equal the paper, the overlap
+     needs only a short paper falloff (edge-matching, not a dark scrim). */
+  .hero--reaim .hero__media { height: 42vh; min-height: 290px; }
+  .hero--reaim .hero__video { transform: scale(1.14); object-position: 25% 30%; }
+  .hero--reaim .hero__video.is-ready { transform: scale(1.08); }
+  /* A short paper falloff at the very top protects the wordmark. It is the
+     media's own edge colour, so it reads as light falloff, not a scrim. */
+  .hero--reaim .hero__media::after {
+    background: linear-gradient(to bottom,
+      rgba(251, 249, 244, .94) 0%,
+      rgba(251, 249, 244, .55) 6%,
+      rgba(251, 249, 244, 0) 15%);
+  }
+  .hero--reaim .hero__copy {
+    margin-top: -76px;
+    padding-top: 0;
+    padding-bottom: 64px;
+    background: linear-gradient(to bottom,
+      rgba(251, 249, 244, 0) 0,
+      var(--bg) 76px,
+      var(--bg) 100%);
+  }
 }
 
 /* ------------------------------ reduced motion ------------------------------ */
