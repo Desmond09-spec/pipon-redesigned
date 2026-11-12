@@ -184,7 +184,7 @@ function useScrollReveals() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('is-in');
+            entry.target.setAttribute('data-in', '');
             io.unobserve(entry.target);
           }
         });
@@ -194,7 +194,7 @@ function useScrollReveals() {
     elements.forEach((el) => io.observe(el));
 
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      elements.forEach((el) => el.classList.add('is-in'));
+      elements.forEach((el) => el.setAttribute('data-in', ''));
     }
     return () => io.disconnect();
   }, []);
@@ -587,7 +587,7 @@ function Steps() {
           {STEPS.map((step, i) => {
             const isOpen = openStep === i;
             return (
-              <div className={`step${isOpen ? ' is-open' : ''}`} key={step.n} data-reveal>
+              <div className="step" data-open={isOpen ? 'true' : 'false'} key={step.n} data-reveal>
                 <button
                   type="button"
                   className="step__toggle"

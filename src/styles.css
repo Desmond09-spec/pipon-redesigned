@@ -133,7 +133,10 @@ button, input { font: inherit; }
   transition: opacity var(--dur, .75s) var(--ease-reveal) var(--d, 0s),
               transform var(--dur, .75s) var(--ease-reveal) var(--d, 0s);
 }
-.js [data-reveal].is-in { opacity: 1; transform: none; }
+/* Reveal state lives in an attribute React never writes, so re-rendering a
+   component's className (e.g. opening a How-it-works step) cannot erase it
+   and re-trigger the hidden/to-be-revealed styles. */
+.js [data-reveal][data-in] { opacity: 1; transform: none; }
 
 /* --------------------------------- buttons ---------------------------------- */
 
@@ -608,7 +611,7 @@ button, input { font: inherit; }
 .step__body { font-size: 14.5px; line-height: 1.6; color: var(--muted); max-width: 34ch; }
 .step__chev { color: var(--faint); margin-top: 8px; transition: transform .35s var(--ease-expo), color .3s; }
 .step__toggle:hover .step__chev { transform: translateY(3px); color: var(--accent); }
-.step.is-open .step__chev { transform: rotate(180deg); color: var(--accent); }
+.step[data-open='true'] .step__chev { transform: rotate(180deg); color: var(--accent); }
 .step__panel { padding: 0 0 26px 92px; }
 .step__panel[hidden] { display: none; }
 .step__panel p {
