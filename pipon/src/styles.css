@@ -889,14 +889,49 @@ button, input { font: inherit; }
 }
 
 /* ------------------------------ hero variants ------------------------------- */
-/* ?hero=brand is the shipping hero. The two earlier directions stay reachable
-   for comparison: ?hero=original (first delivered spark) and ?hero=reaim
-   (shelf clip with the mobile crop corrected). Nothing below the fold changes.
+/* ?hero=story is the shipping hero: the narrative Pip loop that explains what
+   Pipon is. ?hero=brand keeps the previous three-dot clip for comparison;
+   ?hero=original (first delivered spark) and ?hero=reaim (shelf clip with the
+   mobile crop corrected) remain reachable too. Nothing below the fold changes.
    ?compare=1 adds a small live switcher for design review. */
 
-/* brand — the clip's edge colour IS the page background, so no scrim at all. */
-.hero--brand .hero__media::after { display: none; }
-.hero--brand .hero__video { object-position: 29% center; }
+/* story / brand — the clip's edge colour IS the page background, so no scrim. */
+.hero--brand .hero__media::after,
+.hero--story .hero__media::after { display: none; }
+.hero--brand .hero__video,
+.hero--story .hero__video { object-position: 29% center; }
+
+/* ---- story hero on mid-width desktops (1024–1439px) -----------------------
+   The story clip bakes a fixed 660px product window into the left of a 1600px
+   frame, while .hero__copy is a fluid right-hand column. At 29% object-position
+   the window's right edge lands ON the headline between 1024–1280px (measured
+   overlap: -57px @1024, -37px @1100, -9px @1200) and its rounded left corner
+   is clipped by the viewport. object-position cannot fix both ends at once, and
+   narrowing the baked window would shrink the card on 1440px+ screens where it
+   is already well balanced.
+
+   So scale the whole field down for this band instead. The encoded clip's edge
+   is (250,249,242) and the page background is (251,249,244) — a 1–2/255 delta —
+   so the exposed paper margin is invisible, with no seam or scrim. Graduated
+   steps (rather than one hard jump) keep the card clear of the copy at every
+   width and put its rounded left corner back on screen. >=1440px is untouched.
+   Custom properties inherit, so each breakpoint only sets two numbers. */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .hero--story .hero__video,
+  .hero--story .hero__video.is-ready {
+    transform-origin: 0 50%;
+    transform: translateX(var(--story-tx, 0px)) scale(var(--story-s, 1));
+    transition: opacity 1.8s var(--ease-expo), transform .5s ease;
+  }
+}
+@media (min-width: 1024px) and (max-width: 1099px) { .hero--story { --story-tx: 42px; --story-s: .78; } }
+@media (min-width: 1100px) and (max-width: 1199px) { .hero--story { --story-tx: 26px; --story-s: .85; } }
+@media (min-width: 1200px) and (max-width: 1279px) { .hero--story { --story-tx: 10px; --story-s: .92; } }
+@media (min-width: 1280px) and (max-width: 1439px) { .hero--story { --story-tx:  2px; --story-s: .97; } }
+@media (prefers-reduced-motion: reduce) {
+  .hero--story .hero__video,
+  .hero--story .hero__video.is-ready { transition: none; }
+}
 
 /* preview-only live switcher (never rendered in the shipped design) */
 .hero-switcher {
@@ -939,18 +974,22 @@ button, input { font: inherit; }
 .hero-switcher__btn.is-active { background: var(--accent); color: #fff; }
 
 @media (max-width: 1023px) {
-  /* brand — full-bleed field. The clip is born with an empty lower band, so
-     the headline lives INSIDE the media with zero overlay and zero seam. */
-  .hero--brand .hero__media {
+  /* story / brand — full-bleed field. The clips are born with an empty lower
+     band, so the headline lives INSIDE the media with zero overlay and seam. */
+  .hero--brand .hero__media,
+  .hero--story .hero__media {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     min-height: 0;
   }
-  .hero--brand .hero__copy { padding-top: 47vh; padding-bottom: 56px; }
-  .hero--brand .hero__media::after { display: none; }
-  .hero--brand .hero__video { object-position: 50% 8%; }
+  .hero--brand .hero__copy,
+  .hero--story .hero__copy { padding-top: 47vh; padding-bottom: 56px; }
+  .hero--brand .hero__media::after,
+  .hero--story .hero__media::after { display: none; }
+  .hero--brand .hero__video,
+  .hero--story .hero__video { object-position: 50% 8%; }
 
   /* reaim — keep the shelf clip but stop treating it as a box pinned to the
      top: off-centre crop, no fade seam, and the copy plane trespasses 76px

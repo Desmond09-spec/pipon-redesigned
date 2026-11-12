@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 
 /* ---------------------------------- hero variants ----------------------------- */
 
-const HERO_VARIANTS = ['original', 'reaim', 'brand'];
-const DEFAULT_VARIANT = 'brand';
+const HERO_VARIANTS = ['original', 'reaim', 'brand', 'story'];
+const DEFAULT_VARIANT = 'story';
 
 function useHeroVariant() {
   const read = () => {
@@ -296,11 +296,15 @@ function Nav() {
 
 function Hero({ variant }) {
   const portrait = usePortrait();
-  const media = variant === 'brand'
+  const media = variant === 'story'
     ? (portrait
-        ? { src: '/pips-portrait.mp4', poster: '/pips-portrait-poster.jpg' }
-        : { src: '/pips.mp4', poster: '/pips-poster.jpg' })
-    : { src: '/spark.mp4', poster: '/spark-poster.jpg' };
+        ? { src: '/pips-story-portrait.mp4', poster: '/pips-story-portrait-poster.jpg' }
+        : { src: '/pips-story.mp4', poster: '/pips-story-poster.jpg' })
+    : variant === 'brand'
+      ? (portrait
+          ? { src: '/pips-portrait.mp4', poster: '/pips-portrait-poster.jpg' }
+          : { src: '/pips.mp4', poster: '/pips-poster.jpg' })
+      : { src: '/spark.mp4', poster: '/spark-poster.jpg' };
 
   return (
     <section className={`hero hero--${variant}`} id="top">
