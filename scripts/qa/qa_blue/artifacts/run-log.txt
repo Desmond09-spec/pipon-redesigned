@@ -1,0 +1,84 @@
+# Authentic run log — qa_blue.py
+
+Captured verbatim from the QA/debug execution during this project. This script prints its results to stdout and writes no files; this log is its result artifact.
+
+## Command
+
+```
+cd /workspace && python3 /tmp/qa_blue.py 2>&1 | tail -30; echo "EXIT=$?"
+```
+
+## Output
+
+```
+Command: cd /workspace && python3 /tmp/qa_blue.py 2>&1 | tail -30; echo "EXIT=$?"
+Stdout: 
+=== desktop ===
+  [PASS] desktop toggle0 tap-highlight transparent rgba(0, 0, 0, 0)
+  [PASS] desktop toggle1 tap-highlight transparent rgba(0, 0, 0, 0)
+  [PASS] desktop toggle2 tap-highlight transparent rgba(0, 0, 0, 0)
+  [PASS] desktop all controls clean []
+  [PASS] desktop step0 opens & stays opaque {'op': '1', 'open': 'true', 'panel': False}
+  [PASS] desktop step1 opens & stays opaque {'op': '1', 'open': 'true', 'panel': False}
+  [PASS] desktop step2 opens & stays opaque {'op': '1', 'open': 'true', 'panel': False}
+  [PASS] desktop focus outline kept rgb(232, 83, 47)
+  [PASS] desktop no console errors []
+
+=== mobile ===
+  [PASS] mobile toggle0 tap-highlight transparent rgba(0, 0, 0, 0)
+  [PASS] mobile toggle1 tap-highlight transparent rgba(0, 0, 0, 0)
+  [PASS] mobile toggle2 tap-highlight transparent rgba(0, 0, 0, 0)
+  [PASS] mobile all controls clean []
+  [PASS] mobile step0 opens & stays opaque {'op': '1', 'open': 'true', 'panel': False}
+  [PASS] mobile step1 opens & stays opaque {'op': '1', 'open': 'true', 'panel': False}
+  [PASS] mobile step2 opens & stays opaque {'op': '1', 'open': 'true', 'panel': False}
+  [PASS] mobile focus outline kept rgb(232, 83, 47)
+  [PASS] mobile no console errors []
+
+=== RESULT === ALL PASS
+EXIT=0
+
+Stderr: (empty)
+Exit Code: 0
+Signal: (none)
+```
+
+## Command
+
+```
+cd /workspace && python3 /tmp/qa_blue.py
+```
+
+## Output
+
+```
+Command: cd /workspace && python3 /tmp/qa_blue.py
+Stdout: 
+=== desktop ===
+  [PASS] desktop toggle0 tap-highlight transparent rgba(0, 0, 0, 0)
+  [PASS] desktop toggle1 tap-highlight transparent rgba(0, 0, 0, 0)
+  [PASS] desktop toggle2 tap-highlight transparent rgba(0, 0, 0, 0)
+  [PASS] desktop all controls clean []
+  [PASS] desktop step0 opens & stays opaque {'op': '1', 'open': 'true', 'panel': False}
+  [PASS] desktop step1 opens & stays opaque {'op': '1', 'open': 'true', 'panel': False}
+  [PASS] desktop step2 opens & stays opaque {'op': '1', 'open': 'true', 'panel': False}
+  [PASS] desktop focus outline kept rgb(232, 83, 47)
+  [PASS] desktop no console errors []
+
+=== mobile ===
+  [PASS] mobile toggle0 tap-highlight transparent rgba(0, 0, 0, 0)
+  [PASS] mobile toggle1 tap-highlight transparent rgba(0, 0, 0, 0)
+  [PASS] mobile toggle2 tap-highlight transparent rgba(0, 0, 0, 0)
+  [PASS] mobile all controls clean []
+  [PASS] mobile step0 opens & stays opaque {'op': '1', 'open': 'true', 'panel': False}
+  [PASS] mobile step1 opens & stays opaque {'op': '1', 'open': 'true', 'panel': False}
+  [PASS] mobile step2 opens & stays opaque {'op': '1', 'open': 'true', 'panel': False}
+  [PASS] mobile focus outline kept rgb(232, 83, 47)
+  [PASS] mobile no console errors []
+
+=== RESULT === ALL PASS
+
+Stderr: (empty)
+Exit Code: 0
+Signal: (none)
+```

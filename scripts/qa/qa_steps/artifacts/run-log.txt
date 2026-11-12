@@ -1,0 +1,123 @@
+# Authentic run log — qa_steps.py
+
+Captured verbatim from the QA/debug execution during this project. This script prints its results to stdout and writes no files; this log is its result artifact.
+
+## Command
+
+```
+cd /workspace && python3 /tmp/qa_steps.py http://127.0.0.1:4188/ /tmp/qa_steps 2>&1 | grep -E "FAIL|RESULT|=== |all reveals|no console|overflow|step[0-2] revealed"
+```
+
+## Output
+
+```
+Command: cd /workspace && python3 /tmp/qa_steps.py http://127.0.0.1:4188/ /tmp/qa_steps 2>&1 | grep -E "FAIL|RESULT|=== |all reveals|no console|overflow|step[0-2] revealed"
+Stdout: === desktop 1440x900 reduce=False ===
+  [PASS] desktop step0 revealed 1
+  [PASS] desktop step1 revealed 1
+  [PASS] desktop step2 revealed 1
+  [PASS] desktop all reveals visible hidden=[]
+  [PASS] desktop no horizontal overflow overflowX=0
+  [PASS] desktop no console errors []
+=== mobile 390x844 reduce=False ===
+  [PASS] mobile step0 revealed 1
+  [PASS] mobile step1 revealed 1
+  [PASS] mobile step2 revealed 1
+  [PASS] mobile all reveals visible hidden=[]
+  [PASS] mobile no horizontal overflow overflowX=0
+  [PASS] mobile no console errors []
+=== reduced 1440x900 reduce=True ===
+  [PASS] reduced step0 revealed 1
+  [PASS] reduced step1 revealed 1
+  [PASS] reduced step2 revealed 1
+  [PASS] reduced all reveals visible hidden=[]
+  [PASS] reduced no horizontal overflow overflowX=0
+  [PASS] reduced no console errors []
+=== RESULT === ALL PASS
+
+Stderr: (empty)
+Exit Code: 0
+Signal: (none)
+```
+
+## Command
+
+```
+cd /workspace && python3 /tmp/qa_steps.py http://127.0.0.1:4188/ /tmp/qa_steps 2>&1 | grep -E "FAIL|RESULT|=== |all reveals|no console|overflow"
+```
+
+## Output
+
+```
+Command: cd /workspace && python3 /tmp/qa_steps.py http://127.0.0.1:4188/ /tmp/qa_steps 2>&1 | grep -E "FAIL|RESULT|=== |all reveals|no console|overflow"
+Stdout: === desktop 1440x900 reduce=False ===
+  [FAIL] desktop all reveals visible hidden=['eyebrow']
+  [PASS] desktop no horizontal overflow overflowX=0
+  [PASS] desktop no console errors []
+=== mobile 390x844 reduce=False ===
+  [FAIL] mobile all reveals visible hidden=['eyebrow', 'section-h2', 'section-lede']
+  [PASS] mobile no horizontal overflow overflowX=0
+  [PASS] mobile no console errors []
+=== reduced 1440x900 reduce=True ===
+  [PASS] reduced all reveals visible hidden=[]
+  [PASS] reduced no horizontal overflow overflowX=0
+  [PASS] reduced no console errors []
+=== RESULT === 2 FAILURES
+  - desktop all reveals visible hidden=['eyebrow']
+  - mobile all reveals visible hidden=['eyebrow', 'section-h2', 'section-lede']
+
+Stderr: (empty)
+Exit Code: 0
+Signal: (none)
+```
+
+## Command
+
+```
+cd /workspace && python3 /tmp/qa_steps.py http://127.0.0.1:4188/ /tmp/qa_steps 2>&1 | tail -35
+```
+
+## Output
+
+```
+Command: cd /workspace && python3 /tmp/qa_steps.py http://127.0.0.1:4188/ /tmp/qa_steps 2>&1 | tail -35
+Stdout:   [PASS] reduced open0 panel visible 
+  [PASS] reduced open0 chevron rotated matrix(-1, 0, 0, -1, 0, 0)
+  [PASS] reduced open0 sibling1 opacity=1 1
+  [PASS] reduced open0 sibling2 opacity=1 1
+  [PASS] reduced open1 t+0 opacity=1 op=1 tf=none cls=step in=True
+  [PASS] reduced open1 t+150 opacity=1 op=1 tf=none cls=step in=True
+  [PASS] reduced open1 t+400 opacity=1 op=1 tf=none cls=step in=True
+  [PASS] reduced open1 t+900 opacity=1 op=1 tf=none cls=step in=True
+  [PASS] reduced open1 data-in kept 
+  [PASS] reduced open1 panel visible 
+  [PASS] reduced open1 chevron rotated matrix(-1, 0, 0, -1, 0, 0)
+  [PASS] reduced open1 sibling0 opacity=1 1
+  [PASS] reduced open1 sibling2 opacity=1 1
+  [PASS] reduced open2 t+0 opacity=1 op=1 tf=none cls=step in=True
+  [PASS] reduced open2 t+150 opacity=1 op=1 tf=none cls=step in=True
+  [PASS] reduced open2 t+400 opacity=1 op=1 tf=none cls=step in=True
+  [PASS] reduced open2 t+900 opacity=1 op=1 tf=none cls=step in=True
+  [PASS] reduced open2 data-in kept 
+  [PASS] reduced open2 panel visible 
+  [PASS] reduced open2 chevron rotated matrix(-1, 0, 0, -1, 0, 0)
+  [PASS] reduced open2 sibling0 opacity=1 1
+  [PASS] reduced open2 sibling1 opacity=1 1
+  [PASS] reduced close2 opacity=1 1
+  [PASS] reduced close2 panel hidden 
+  [PASS] reduced close2 data-open=false 
+  [PASS] reduced rapid-step0 opacity=1 1
+  [PASS] reduced rapid-step1 opacity=1 1
+  [PASS] reduced rapid-step2 opacity=1 1
+  [PASS] reduced all reveals visible hidden=0
+  [PASS] reduced no horizontal overflow overflowX=0
+  [PASS] reduced no console errors []
+
+=== RESULT === 2 FAILURES
+  - desktop all reveals visible hidden=1
+  - mobile all reveals visible hidden=4
+
+Stderr: (empty)
+Exit Code: 0
+Signal: (none)
+```

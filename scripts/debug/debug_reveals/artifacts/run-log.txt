@@ -1,0 +1,30 @@
+# Authentic run log — debug_reveals.py
+
+Captured verbatim from the QA/debug execution during this project. This script prints its results to stdout and writes no files; this log is its result artifact.
+
+## Command
+
+```
+cd /workspace && python3 /tmp/debug_reveals.py
+```
+
+## Output
+
+```
+Command: cd /workspace && python3 /tmp/debug_reveals.py
+Stdout: {'i': 11, 'tag': 'P', 'cls': 'eyebrow', 'dataIn': False, 'op': '0', 'tf': 'matrix(1, 0, 0, 1, 0, 30)', 'rectTop': 3395, 'h': 13, 'vis': 'visible', 'disp': 'flex'}
+{'i': 12, 'tag': 'H2', 'cls': 'section-h2', 'dataIn': False, 'op': '0', 'tf': 'matrix(1, 0, 0, 1, 0, 34)', 'rectTop': 3434, 'h': 142, 'vis': 'visible', 'disp': 'block'}
+{'i': 13, 'tag': 'P', 'cls': 'steps__note', 'dataIn': False, 'op': '0', 'tf': 'matrix(1, 0, 0, 1, 0, 30)', 'rectTop': 3594, 'h': 23, 'vis': 'visible', 'disp': 'block'}
+{'i': 14, 'tag': 'DIV', 'cls': 'step', 'dataIn': False, 'op': '0', 'tf': 'matrix(1, 0, 0, 1, 0, 30)', 'rectTop': 3395, 'h': 141, 'vis': 'visible', 'disp': 'block'}
+{'i': 15, 'tag': 'DIV', 'cls': 'step', 'dataIn': False, 'op': '0', 'tf': 'matrix(1, 0, 0, 1, 0, 30)', 'rectTop': 3536, 'h': 141, 'vis': 'visible', 'disp': 'block'}
+{'i': 16, 'tag': 'DIV', 'cls': 'step', 'dataIn': False, 'op': '0', 'tf': 'matrix(1, 0, 0, 1, 0, 30)', 'rectTop': 3677, 'h': 141, 'vis': 'visible', 'disp': 'block'}
+{'i': 17, 'tag': 'P', 'cls': 'eyebrow eyebrow--light', 'dataIn': False, 'op': '0', 'tf': 'matrix(1, 0, 0, 1, 0, 30)', 'rectTop': 4094, 'h': 13, 'vis': 'visible', 'disp': 'flex'}
+{'i': 18, 'tag': 'H2', 'cls': 'join__h2', 'dataIn': False, 'op': '0', 'tf': 'matrix(1, 0, 0, 1, 0, 34)', 'rectTop': 4133, 'h': 189, 'vis': 'visible', 'disp': 'block'}
+{'i': 19, 'tag': 'P', 'cls': 'join__sub', 'dataIn': False, 'op': '0', 'tf': 'matrix(1, 0, 0, 1, 0, 30)', 'rectTop': 4342, 'h': 51, 'vis': 'visible', 'disp': 'block'}
+{'i': 20, 'tag': 'DIV', 'cls': 'join__form', 'dataIn': False, 'op': '0', 'tf': 'matrix(1, 0, 0, 1, 0, 30)', 'rectTop': 4429, 'h': 99, 'vis': 'visible', 'disp': 'flex'}
+total reveals: 21
+
+Stderr: (empty)
+Exit Code: 0
+Signal: (none)
+```

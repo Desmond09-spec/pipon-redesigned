@@ -28,7 +28,15 @@
 }
 
 html, body { background: var(--bg); color: var(--fg); }
-html { scroll-behavior: smooth; overflow-x: clip; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+  /* Chromium's default tap highlight is a cyan-blue rectangle
+     (rgba(51,181,229,.4)) that flashes over the whole tapped control.
+     We supply our own hover/active/open feedback, so suppress the UA one
+     site-wide — it clashes with the warm paper + vermilion palette. */
+  -webkit-tap-highlight-color: transparent;
+}
 body {
   margin: 0;
   overflow-x: clip;
@@ -42,6 +50,9 @@ body {
 ::selection { background: rgba(232, 83, 47, .22); }
 a { color: inherit; }
 button, input { font: inherit; }
+/* Explicit on controls as well: Safari/Android WebView don't always inherit
+   -webkit-tap-highlight-color from html. */
+:where(a, button, input, [role='button']) { -webkit-tap-highlight-color: transparent; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
 
 .wrap { width: 100%; max-width: 1200px; margin: 0 auto; padding-inline: clamp(20px, 5vw, 64px); }

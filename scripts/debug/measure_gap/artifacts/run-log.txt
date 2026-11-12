@@ -1,0 +1,103 @@
+# Authentic run log — measure_gap.py
+
+Captured verbatim from the QA/debug execution during this project. This script prints its results to stdout and writes no files; this log is its result artifact.
+
+## Command
+
+```
+cd /workspace/pipon && python3.11 /tmp/measure_gap.py
+```
+
+## Output
+
+```
+Command: cd /workspace/pipon && python3.11 /tmp/measure_gap.py
+Stdout: 
+=== viewport 1024 ===
+  media 1024x900  scale 0.9956  objPos 29% 50%  offX -165.0
+  copyLeft 573.5  h1Left 573.453125  winLeft -26.6  overflowX 0
+    WIN right src 799 -> screen  630.5   gap to copy   -57.0 COLLIDE
+    WIN right src 769 -> screen  600.6   gap to copy   -27.1 COLLIDE
+    WIN right src 739 -> screen  570.7   gap to copy    +2.8 TIGHT
+    WIN right src 709 -> screen  540.9   gap to copy   +32.6 OK
+    WIN right src 699 -> screen  530.9   gap to copy   +42.6 OK
+    WIN right src 689 -> screen  521.0   gap to copy   +52.5 OK
+    WIN right src 679 -> screen  511.0   gap to copy   +62.5 OK
+    WIN right src 660 -> screen  492.1   gap to copy   +81.4 OK
+
+=== viewport 1100 ===
+  media 1100x900  scale 0.9956  objPos 29% 50%  offX -142.9
+  copyLeft 616.0  h1Left 616  winLeft -4.6  overflowX 0
+    WIN right src 799 -> screen  652.5   gap to copy   -36.5 COLLIDE
+    WIN right src 769 -> screen  622.7   gap to copy    -6.7 COLLIDE
+    WIN right src 739 -> screen  592.8   gap to copy   +23.2 TIGHT
+    WIN right src 709 -> screen  562.9   gap to copy   +53.1 OK
+    WIN right src 699 -> screen  553.0   gap to copy   +63.0 OK
+    WIN right src 689 -> screen  543.0   gap to copy   +73.0 OK
+    WIN right src 679 -> screen  533.0   gap to copy   +83.0 OK
+    WIN right src 660 -> screen  514.1   gap to copy  +101.9 OK
+
+=== viewport 1200 ===
+  media 1200x900  scale 0.9956  objPos 29% 50%  offX -113.9
+  copyLeft 672.0  h1Left 672  winLeft 24.4  overflowX 0
+    WIN right src 799 -> screen  681.5   gap to copy    -9.5 COLLIDE
+    WIN right src 769 -> screen  651.7   gap to copy   +20.3 TIGHT
+    WIN right src 739 -> screen  621.8   gap to copy   +50.2 OK
+    WIN right src 709 -> screen  591.9   gap to copy   +80.1 OK
+    WIN right src 699 -> screen  582.0   gap to copy   +90.0 OK
+    WIN right src 689 -> screen  572.0   gap to copy  +100.0 OK
+    WIN right src 679 -> screen  562.0   gap to copy  +110.0 OK
+    WIN right src 660 -> screen  543.1   gap to copy  +128.9 OK
+
+=== viewport 1280 ===
+  media 1280x900  scale 0.9956  objPos 29% 50%  offX -90.7
+  copyLeft 716.8  h1Left 716.8125  winLeft 47.6  overflowX 0
+    WIN right src 799 -> screen  704.7   gap to copy   +12.1 TIGHT
+    WIN right src 769 -> screen  674.9   gap to copy   +41.9 OK
+    WIN right src 739 -> screen  645.0   gap to copy   +71.8 OK
+    WIN right src 709 -> screen  615.1   gap to copy  +101.7 OK
+    WIN right src 699 -> screen  605.2   gap to copy  +111.6 OK
+    WIN right src 689 -> screen  595.2   gap to copy  +121.6 OK
+    WIN right src 679 -> screen  585.2   gap to copy  +131.6 OK
+    WIN right src 660 -> screen  566.3   gap to copy  +150.5 OK
+
+=== viewport 1440 ===
+  media 1440x900  scale 0.9956  objPos 29% 50%  offX -44.3
+  copyLeft 820.0  h1Left 820  winLeft 94.0  overflowX 0
+    WIN right src 799 -> screen  751.1   gap to copy   +68.9 OK
+    WIN right src 769 -> screen  721.3   gap to copy   +98.7 OK
+    WIN right src 739 -> screen  691.4   gap to copy  +128.6 OK
+    WIN right src 709 -> screen  661.5   gap to copy  +158.5 OK
+    WIN right src 699 -> screen  651.6   gap to copy  +168.4 OK
+    WIN right src 689 -> screen  641.6   gap to copy  +178.4 OK
+    WIN right src 679 -> screen  631.6   gap to copy  +188.4 OK
+    WIN right src 660 -> screen  612.7   gap to copy  +207.3 OK
+
+=== viewport 1600 ===
+  media 1600x900  scale 1.0000  objPos 29% 50%  offX 0.0
+  copyLeft 980.0  h1Left 980  winLeft 139.0  overflowX 0
+    WIN right src 799 -> screen  799.0   gap to copy  +181.0 OK
+    WIN right src 769 -> screen  769.0   gap to copy  +211.0 OK
+    WIN right src 739 -> screen  739.0   gap to copy  +241.0 OK
+    WIN right src 709 -> screen  709.0   gap to copy  +271.0 OK
+    WIN right src 699 -> screen  699.0   gap to copy  +281.0 OK
+    WIN right src 689 -> screen  689.0   gap to copy  +291.0 OK
+    WIN right src 679 -> screen  679.0   gap to copy  +301.0 OK
+    WIN right src 660 -> screen  660.0   gap to copy  +320.0 OK
+
+=== viewport 1920 ===
+  media 1920x900  scale 1.2000  objPos 29% 50%  offX 0.0
+  copyLeft 1300.0  h1Left 1300  winLeft 166.8  overflowX 0
+    WIN right src 799 -> screen  958.8   gap to copy  +341.2 OK
+    WIN right src 769 -> screen  922.8   gap to copy  +377.2 OK
+    WIN right src 739 -> screen  886.8   gap to copy  +413.2 OK
+    WIN right src 709 -> screen  850.8   gap to copy  +449.2 OK
+    WIN right src 699 -> screen  838.8   gap to copy  +461.2 OK
+    WIN right src 689 -> screen  826.8   gap to copy  +473.2 OK
+    WIN right src 679 -> screen  814.8   gap to copy  +485.2 OK
+    WIN right src 660 -> screen  792.0   gap to copy  +508.0 OK
+
+Stderr: (empty)
+Exit Code: 0
+Signal: (none)
+```

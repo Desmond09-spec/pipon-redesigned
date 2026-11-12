@@ -1,0 +1,45 @@
+# Authentic run log — verify_unmerge.py
+
+Captured verbatim from the QA/debug execution during this project. This script prints its results to stdout and writes no files; this log is its result artifact.
+
+## Command
+
+```
+cd /workspace/motion && echo "=== DESKTOP ===" && python3 /tmp/verify_unmerge.py /workspace/pipon/public/pips-story.mp4; echo "EXIT=$?"; echo "=== PORTRAIT ===" && python3 /tmp/verify_unmerge.py /workspace/pipon/public/pips-story-portrait.mp4; echo "EXIT=$?"
+```
+
+## Output
+
+```
+Command: cd /workspace/motion && echo "=== DESKTOP ===" && python3 /tmp/verify_unmerge.py /workspace/pipon/public/pips-story.mp4; echo "EXIT=$?"; echo "=== PORTRAIT ===" && python3 /tmp/verify_unmerge.py /workspace/pipon/public/pips-story-portrait.mp4; echo "EXIT=$?"
+Stdout: === DESKTOP ===
+t=16.90s  components=1  sizes=[20607]
+t=17.00s  components=1  sizes=[38079]
+t=17.10s  components=2  sizes=[40168, 20583]
+t=17.20s  components=3  sizes=[20585, 20581, 20574]
+t=17.30s  components=3  sizes=[20610, 20603, 20572]
+t=17.50s  components=3  sizes=[20604, 20577, 20576]
+t=17.70s  components=3  sizes=[20607, 20577, 20575]
+t=17.90s  components=3  sizes=[20612, 20587, 20584]
+t=18.50s  components=3  sizes=[20608, 20591, 20575]
+
+RESULT: PASS - exactly three pips after split
+EXIT=0
+=== PORTRAIT ===
+t=16.90s  components=1  sizes=[17624]
+t=17.00s  components=1  sizes=[32707]
+t=17.10s  components=2  sizes=[34443, 17654]
+t=17.20s  components=3  sizes=[17634, 17628, 17623]
+t=17.30s  components=3  sizes=[17662, 17659, 17629]
+t=17.50s  components=3  sizes=[17658, 17657, 17629]
+t=17.70s  components=3  sizes=[17668, 17667, 17659]
+t=17.90s  components=3  sizes=[17674, 17662, 17661]
+t=18.50s  components=3  sizes=[17666, 17663, 17660]
+
+RESULT: PASS - exactly three pips after split
+EXIT=0
+
+Stderr: (empty)
+Exit Code: 0
+Signal: (none)
+```

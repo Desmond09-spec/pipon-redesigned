@@ -1,0 +1,22 @@
+# Authentic run log — debug_reveals2.py
+
+Captured verbatim from the QA/debug execution during this project. This script prints its results to stdout and writes no files; this log is its result artifact.
+
+## Command
+
+```
+cd /workspace && python3 /tmp/debug_reveals2.py
+```
+
+## Output
+
+```
+Command: cd /workspace && python3 /tmp/debug_reveals2.py
+Stdout: === desktop 1440x900, 21 reveals, 0 hidden ===
+=== mobile 390x844, 21 reveals, 1 hidden ===
+  {'i': 10, 'cls': 'voices__stats', 'dataIn': False, 'op': '0', 'h': 0, 'vh': 844, 'parentDisp': 'flex'}
+
+Stderr: (empty)
+Exit Code: 0
+Signal: (none)
+```

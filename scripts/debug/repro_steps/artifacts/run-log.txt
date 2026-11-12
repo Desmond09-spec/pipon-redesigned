@@ -1,0 +1,29 @@
+# Authentic run log — repro_steps.py
+
+Captured verbatim from the QA/debug execution during this project. This script prints its results to stdout and writes no files; this log is its result artifact.
+
+## Command
+
+```
+cd /workspace && python3 /tmp/repro_steps.py http://127.0.0.1:4188/
+```
+
+## Output
+
+```
+Command: cd /workspace && python3 /tmp/repro_steps.py http://127.0.0.1:4188/
+Stdout: step count: 3
+before click 0 step is-in opacity 1
+before click 1 step is-in opacity 1
+before click 2 step is-in opacity 1
+t+0ms {'cls': 'step is-open', 'opacity': '1', 'transform': 'matrix(1, 0, 0, 1, 0, 0)', 'panelHidden': False, 'panelOpacity': '0.239662'}
+t+120ms {'cls': 'step is-open', 'opacity': '1', 'transform': 'matrix(1, 0, 0, 1, 0, 0)', 'panelHidden': False, 'panelOpacity': '0.927766'}
+t+300ms {'cls': 'step is-open', 'opacity': '0.432123', 'transform': 'matrix(1, 0, 0, 1, 0, 17.0363)', 'panelHidden': False, 'panelOpacity': '1'}
+t+600ms {'cls': 'step is-open', 'opacity': '0', 'transform': 'matrix(1, 0, 0, 1, 0, 30)', 'panelHidden': False, 'panelOpacity': '1'}
+t+1000ms {'cls': 'step is-open', 'opacity': '0', 'transform': 'matrix(1, 0, 0, 1, 0, 30)', 'panelHidden': False, 'panelOpacity': '1'}
+console errors: []
+
+Stderr: (empty)
+Exit Code: 0
+Signal: (none)
+```

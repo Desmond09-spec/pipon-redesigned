@@ -1,0 +1,25 @@
+# Authentic run log — live_crops.py
+
+Captured verbatim from the QA/debug execution during this project. This script prints its results to stdout and writes no files; this log is its result artifact.
+
+## Command
+
+```
+cd /workspace/pipon && python3.11 /tmp/live_crops.py
+```
+
+## Output
+
+```
+Command: cd /workspace/pipon && python3.11 /tmp/live_crops.py
+Stdout: 1024 {'vw': 1600, 'vh': 904, 'copyLeft': 573.5, 'op': '29% 50%', 't': 4.2}
+1100 {'vw': 1600, 'vh': 904, 'copyLeft': 616, 'op': '29% 50%', 't': 4.2}
+1200 {'vw': 1600, 'vh': 904, 'copyLeft': 672, 'op': '29% 50%', 't': 4.2}
+1280 {'vw': 1600, 'vh': 904, 'copyLeft': 716.8, 'op': '29% 50%', 't': 4.2}
+1440 {'vw': 1600, 'vh': 904, 'copyLeft': 820, 'op': '29% 50%', 't': 4.2}
+1600 {'vw': 1600, 'vh': 904, 'copyLeft': 980, 'op': '29% 50%', 't': 4.2}
+
+Stderr: (empty)
+Exit Code: 0
+Signal: (none)
+```

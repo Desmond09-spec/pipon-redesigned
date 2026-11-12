@@ -1,0 +1,90 @@
+# Authentic run log — qa_story.py
+
+Captured verbatim from the QA/debug execution during this project. This script prints its results to stdout and writes no files; this log is its result artifact.
+
+## Command
+
+```
+cd /tmp && python3.11 /tmp/qa_story.py 2>&1 | tail -60 && echo && python3.11 -
+```
+
+## Output
+
+```
+Command: cd /tmp && python3.11 /tmp/qa_story.py 2>&1 | tail -60 && echo && python3.11 - <<'PY'
+from PIL import Image, ImageDraw, ImageFont
+tags=["top","dots","merge","ui","feed","comment","reel","unmerge"]
+name="mobile"; tw=250
+files=[f"/tmp/story_qa/{name}_{t}.png" for t in tags]
+im0=Image.open(files[0]); th=int(tw*im0.height/im0.width)
+cols=2; pad=8; lbl=24; rows=(len(files)+cols-1)//cols
+out=Image.new('RGB',(cols*(tw+pad)+pad,rows*(th+lbl+pad)+pad),(236,233,226))
+d=ImageDraw.Draw(out)
+try: f=ImageFont.truetype('/workspace/motion/fonts/PJS.ttf',14)
+except: f=ImageFont.load_default()
+for i,(fp,tag) in enumerate(zip(files,tags)):
+    im=Image.open(fp).convert('RGB').resize((tw,th),Image.LANCZOS)
+    r,c=divmod(i,cols); x=pad+c*(tw+pad); y=pad+r*(th+lbl+pad)
+    out.paste(im,(x,y)); d.text((x+3,y+th+3),tag,fill=(40,36,32),font=f)
+out.save('/tmp/story_qa/mobile_sheet_v2.jpg',quality=90)
+print("saved mobile_sheet_v2.jpg")
+PY
+Stdout: {
+  "viewport": "desktop",
+  "state": {
+    "src": "pips-story.mp4",
+    "poster": "pips-story-poster.jpg",
+    "readyState": 4,
+    "networkState": 1,
+    "paused": false,
+    "muted": true,
+    "loop": true,
+    "t": 1.7,
+    "duration": 19,
+    "vw": 1600,
+    "vh": 904,
+    "hasReady": true,
+    "opacity": "0.999968",
+    "objectPosition": "29% 50%",
+    "overflowX": 0,
+    "fonts": "loaded",
+    "heroClass": "hero hero--story"
+  },
+  "resumed_at": 18.1,
+  "console_errors": [],
+  "request_failed": [],
+  "http_errors": []
+}
+{
+  "viewport": "mobile",
+  "state": {
+    "src": "pips-story-portrait.mp4",
+    "poster": "pips-story-portrait-poster.jpg",
+    "readyState": 4,
+    "networkState": 1,
+    "paused": false,
+    "muted": true,
+    "loop": true,
+    "t": 1.72,
+    "duration": 19,
+    "vw": 720,
+    "vh": 1280,
+    "hasReady": true,
+    "opacity": "0.999968",
+    "objectPosition": "50% 8%",
+    "overflowX": 0,
+    "fonts": "loaded",
+    "heroClass": "hero hero--story"
+  },
+  "resumed_at": 18.1,
+  "console_errors": [],
+  "request_failed": [],
+  "http_errors": []
+}
+
+saved mobile_sheet_v2.jpg
+
+Stderr: (empty)
+Exit Code: 0
+Signal: (none)
+```

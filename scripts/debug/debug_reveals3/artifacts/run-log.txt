@@ -1,0 +1,21 @@
+# Authentic run log — debug_reveals3.py
+
+Captured verbatim from the QA/debug execution during this project. This script prints its results to stdout and writes no files; this log is its result artifact.
+
+## Command
+
+```
+cd /workspace && python3 /tmp/debug_reveals3.py
+```
+
+## Output
+
+```
+Command: cd /workspace && python3 /tmp/debug_reveals3.py
+Stdout: after #how jump, data-in count: 7
+hidden: [{'i': 0, 'cls': 'eyebrow', 'dataIn': False, 'op': '0', 'top': -2629, 'h': 13}]
+
+Stderr: (empty)
+Exit Code: 0
+Signal: (none)
+```

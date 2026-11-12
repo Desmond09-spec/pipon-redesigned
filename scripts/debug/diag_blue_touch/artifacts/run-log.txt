@@ -1,0 +1,23 @@
+# Authentic run log — diag_blue_touch.py
+
+Captured verbatim from the QA/debug execution during this project. This script prints its results to stdout and writes no files; this log is its result artifact.
+
+## Command
+
+```
+cd /workspace && python3 /tmp/diag_blue_touch.py
+```
+
+## Output
+
+```
+Command: cd /workspace && python3 /tmp/diag_blue_touch.py
+Stdout: before blue_px = 0
+held blue_px = 0
+after blue_px = 0
+saved before sheet
+
+Stderr: (empty)
+Exit Code: 0
+Signal: (none)
+```

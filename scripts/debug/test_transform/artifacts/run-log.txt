@@ -1,0 +1,20 @@
+# Authentic run log — test_transform.py
+
+Captured verbatim from the QA/debug execution during this project. This script prints its results to stdout and writes no files; this log is its result artifact.
+
+## Command
+
+```
+cd /workspace/pipon && python3.11 /tmp/test_transform.py
+```
+
+## Output
+
+```
+Command: cd /workspace/pipon && python3.11 /tmp/test_transform.py
+Stdout: saved /tmp/transform_test/sheet.jpg
+
+Stderr: (empty)
+Exit Code: 0
+Signal: (none)
+```

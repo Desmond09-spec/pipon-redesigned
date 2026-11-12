@@ -1,0 +1,146 @@
+# Authentic run log — motion_final_qa.py
+
+Captured verbatim from the QA/debug execution during this project. This script prints its results to stdout and writes no files; this log is its result artifact.
+
+## Command
+
+```
+cd /workspace/motion && python3.11 /root/.codebuddy/artifact/2f8a7d30-9c21-4f0b-1d69-4b32cb565000/motion_final_qa.py
+```
+
+## Output
+
+```
+Command: cd /workspace/motion && python3.11 /root/.codebuddy/artifact/2f8a7d30-9c21-4f0b-1d69-4b32cb565000/motion_final_qa.py
+Stdout: {
+  "title": "Pipon \u2014 Motion Graphics Study 02",
+  "fonts": [
+    "Fraunces",
+    "PJS"
+  ],
+  "overflow": false,
+  "vids": [
+    {
+      "src": "pipon-motion-reel.mp4",
+      "ready": 4,
+      "paused": false,
+      "t": 4.69,
+      "dur": 6,
+      "w": 1280,
+      "h": 720,
+      "err": null
+    },
+    {
+      "src": "pipon-logo-sting.mp4",
+      "ready": 4,
+      "paused": false,
+      "t": 1.93,
+      "dur": 2.6,
+      "w": 1080,
+      "h": 1080,
+      "err": null
+    },
+    {
+      "src": "pipon-dots-loop.mp4",
+      "ready": 4,
+      "paused": false,
+      "t": 0.68,
+      "dur": 2,
+      "w": 1280,
+      "h": 720,
+      "err": null
+    }
+  ],
+  "ev": {
+    "pipon-motion-reel.mp4": {
+      "loadstart": 0,
+      "emptied": 0,
+      "seeked": 0,
+      "abort": 0,
+      "stalled": 0,
+      "error": 0,
+      "samples": [
+        0.74,
+        0.99,
+        1.24,
+        1.49,
+        1.74,
+        1.99,
+        2.24,
+        2.49,
+        2.74,
+        2.99,
+        3.24,
+        3.49,
+        3.74,
+        3.99,
+        4.24,
+        4.49
+      ]
+    },
+    "pipon-logo-sting.mp4": {
+      "loadstart": 0,
+      "emptied": 0,
+      "seeked": 1,
+      "abort": 0,
+      "stalled": 0,
+      "error": 0,
+      "samples": [
+        0.73,
+        0.98,
+        1.23,
+        1.48,
+        1.73,
+        1.98,
+        2.23,
+        2.48,
+        2.6,
+        0.23,
+        0.48,
+        0.73,
+        0.97,
+        1.23,
+        1.48,
+        1.73
+      ]
+    },
+    "pipon-dots-loop.mp4": {
+      "loadstart": 0,
+      "emptied": 0,
+      "seeked": 2,
+      "abort": 0,
+      "stalled": 0,
+      "error": 0,
+      "samples": [
+        0.74,
+        0.99,
+        1.24,
+        1.49,
+        1.74,
+        1.99,
+        0.23,
+        0.48,
+        0.73,
+        0.98,
+        1.23,
+        1.48,
+        1.73,
+        1.98,
+        0.23,
+        0.48
+      ]
+    }
+  }
+}
+console errors: []
+failed requests: []
+
+--- loop verdict ---
+pipon-motion-reel.mp4: loadstart=0 emptied=0 seeked=0 abort=0 stalled=0 error=0 | time restarts (loops)=0 | t-range=0.74..4.49
+pipon-logo-sting.mp4: loadstart=0 emptied=0 seeked=1 abort=0 stalled=0 error=0 | time restarts (loops)=1 | t-range=0.23..2.6
+pipon-dots-loop.mp4: loadstart=0 emptied=0 seeked=2 abort=0 stalled=0 error=0 | time restarts (loops)=2 | t-range=0.23..1.99
+
+Stderr: (empty)
+Exit Code: 0
+Signal: (none)
+```

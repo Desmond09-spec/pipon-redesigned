@@ -1,0 +1,35 @@
+# Authentic run log — qa_final.py
+
+Captured verbatim from the QA/debug execution during this project. This script prints its results to stdout and writes no files; this log is its result artifact.
+
+## Command
+
+```
+cd /tmp && python3.11 qa_final.py 2>&1
+```
+
+## Output
+
+```
+Command: cd /tmp && python3.11 qa_final.py 2>&1
+Stdout: === full-page (production dist) ===
+ dist_desktop_full  src=pips-story.mp4             ovfX=0 docH=4871 imgs=0 broken=[] errs=0 fails=1 http=[]
+ dist_1024_full     src=pips-story.mp4             ovfX=0 docH=4486 imgs=0 broken=[] errs=0 fails=0 http=[]
+ dist_mobile_full   src=pips-story-portrait.mp4    ovfX=0 docH=4905 imgs=0 broken=[] errs=0 fails=0 http=[]
+
+=== variants (rebuilt CSS) ===
+ var_hero_original  -> spark.mp4        hero=hero hero--original op=28% 50%      tr=matrix(1.00012, 0, 0, 
+ var_hero_reaim     -> spark.mp4        hero=hero hero--reaim   op=28% 50%      tr=none
+ var_hero_brand     -> pips.mp4         hero=hero hero--brand   op=29% 50%      tr=none
+ var_hero_story     -> pips-story.mp4   hero=hero hero--story   op=29% 50%      tr=matrix(1.0001, 0, 0, 1
+ var_compare_1      -> pips-story.mp4   hero=hero hero--story   op=29% 50%      tr=matrix(1.0001, 0, 0, 1
+
+=== switcher buttons === ['original', 'reaim', 'brand', 'story']
+
+=== full 19s loop ===
+  {'dur': 19, 'samples': [0.6, 1.2, 1.8, 2.4, 3, 3.6, 4.2, 4.8], 'afterWrap': 0.89, 'paused': False, 'loop': True, 'ended': False, 'readyState': 4}
+
+Stderr: (empty)
+Exit Code: 0
+Signal: (none)
+```

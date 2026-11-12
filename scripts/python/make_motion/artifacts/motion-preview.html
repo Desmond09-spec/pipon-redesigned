@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pipon — Motion Graphics Study 02</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='29 28 76 76'%3E%3Ccircle cx='46' cy='47' r='11.5' fill='%23E8532F'/%3E%3Ccircle cx='88' cy='47' r='11.5' fill='%23E8532F'/%3E%3Ccircle cx='67' cy='85' r='11.5' fill='%23E8532F'/%3E%3C/svg%3E">
+<style>
+@font-face{font-family:PJS;src:url(fonts/PJS.ttf) format("truetype");font-weight:200 800;}
+@font-face{font-family:Fraunces;src:url(fonts/Fraunces-Italic.ttf) format("truetype");font-style:italic;font-weight:100 900;}
+:root{--paper:#FBF9F4;--ink:#1B1917;--accent:#E8532F;--accent-ink:#B85C3C;--muted:#6E675F;--faint:#9A9288;--line:#E4DED5;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:PJS,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1240px;margin:0 auto;padding:clamp(28px,5vw,68px) clamp(20px,4vw,48px) 90px}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-ink)}
+h1{margin:16px 0 10px;font-size:clamp(34px,5.2vw,64px);font-weight:600;letter-spacing:-.045em;line-height:1.05}
+h1 em{font-family:Fraunces,Georgia,serif;font-style:italic;font-weight:400;color:var(--accent-ink);letter-spacing:-.03em}
+.lede{max-width:56ch;margin:0;color:var(--muted);font-size:15px;line-height:1.65}
+.rule{height:1px;background:var(--line);margin:44px 0 34px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.card--wide{grid-column:1/-1}
+.card video{display:block;width:100%;height:auto;background:var(--paper)}
+.card--square video{aspect-ratio:1;object-fit:cover}
+.meta{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:18px 20px 20px;border-top:1px solid var(--line)}
+.meta h2{margin:0 0 5px;font-size:17px;font-weight:600;letter-spacing:-.02em}
+.meta p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.5}
+.spec{flex:none;text-align:right;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);white-space:nowrap}
+.foot{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:11px;letter-spacing:.08em;color:var(--faint);text-transform:uppercase}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.card--wide{grid-column:auto}.meta{flex-direction:column}.spec{text-align:left}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Pipon / Motion Graphics / Rev 02</div>
+  <h1>Study 02 — <em>the plate-free mark</em></h1>
+  <p class="lede">The black squircle is gone: the mark is now just three flat orange dots on paper. Every frame is re-rendered procedurally with the exact logo geometry and brand hexes; no stock footage, no template. All clips are H.264 / yuv420p, muted and looping.</p>
+
+  <div class="rule"></div>
+
+  <div class="grid">
+    <div class="card card--wide">
+      <video src="pipon-motion-reel.mp4" autoplay muted loop playsinline preload="auto" poster="pipon-motion-reel-poster.jpg"></video>
+      <div class="meta">
+        <div><h2>The reel</h2><p>Mark build → kinetic type → seamless dot loop. Contact shadows, impact ripples, crossfades, staggered mask-ups, ease-out-back overshoot.</p></div>
+        <div class="spec">1280 × 720 · 6.0s · 30fps</div>
+      </div>
+    </div>
+
+    <div class="card card--square">
+      <video src="pipon-logo-sting.mp4" autoplay muted loop playsinline preload="auto" data-start="0.95" poster="pipon-logo-sting-poster.jpg"></video>
+      <div class="meta">
+        <div><h2>Logo sting</h2><p>Square, social-safe ident. Three dots land on bare paper with ripples, hairline triangle draws, wordmark wipes, accent dot lands. No plate.</p></div>
+        <div class="spec">1080 × 1080 · 2.6s</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <video src="pipon-dots-loop.mp4" autoplay muted loop playsinline preload="auto" poster="pipon-dots-loop-poster.jpg"></video>
+      <div class="meta">
+        <div><h2>Seamless loop</h2><p>Integer-cycle motion only: rotation, drift, breathe, parallax. Frame 60 equals frame 0 exactly.</p></div>
+        <div class="spec">1280 × 720 · 2.0s · seam 0.0</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span>Procedural · NumPy distance fields · Plus Jakarta Sans + Fraunces · ffmpeg / libopenh264</span>
+    <span>Accent #E8532F on paper #FBF9F4 · no black plate</span>
+  </div>
+</div>
+<script>
+  // Chrome defers autoplay for offscreen videos; kick all three explicitly.
+  document.querySelectorAll('video').forEach(function (v) {
+    var start = function () { v.play().catch(function () {}); };
+    start();
+    v.addEventListener('loadeddata', start);
+    document.addEventListener('visibilitychange', start);
+    // The ident opens on bare paper. Skip that lead-in exactly once, on the
+    // first buffered frame, so the mark is visible immediately. A one-time
+    // listener avoids the seek/load loop a repeating guard would cause.
+    var lead = parseFloat(v.getAttribute('data-start') || '0');
+    if (lead > 0) {
+      v.addEventListener('loadeddata', function () {
+        if (v.currentTime < lead) v.currentTime = lead;
+      }, { once: true });
+      v.addEventListener('timeupdate', function onFirst() {
+        if (v.currentTime >= lead - 0.05) { v.removeEventListener('timeupdate', onFirst); return; }
+        // no-op; the one-shot seek above already ran
+      });
+    }
+  });
+</script>
+</body>
+</html>

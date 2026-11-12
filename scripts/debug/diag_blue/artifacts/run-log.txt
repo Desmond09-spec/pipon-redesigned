@@ -1,0 +1,84 @@
+# Authentic run log — diag_blue.py
+
+Captured verbatim from the QA/debug execution during this project. This script prints its results to stdout and writes no files; this log is its result artifact.
+
+## Command
+
+```
+nohup python3 -m http.server 4188 --directory /workspace/pipon/dist >/tmp/serve4188.log 2>&1 & sleep 1; curl -s -o /dev/null -w "4188 -> %{http_code}\n" http://127.0.0.1:4188/ && cd /workspace && python3 /tmp/diag_blue.py
+```
+
+## Output
+
+```
+Command: nohup python3 -m http.server 4188 --directory /workspace/pipon/dist >/tmp/serve4188.log 2>&1 & sleep 1; curl -s -o /dev/null -w "4188 -> %{http_code}\n" http://127.0.0.1:4188/ && cd /workspace && python3 /tmp/diag_blue.py
+Stdout: 4188 -> 200
+
+=== desktop computed === {'tapHighlight': 'rgba(0, 0, 0, 0.18)', 'userSelect': 'auto', 'outline': 'rgb(27, 25, 23) none 0px', 'selectionBg': 'rgba(232, 83, 47, 0.22)'}
+  desktop down: blue_px=(3652, 208.35021905805039)
+  desktop t0: blue_px=(3652, 208.35021905805039)
+  desktop t40: blue_px=(3652, 208.35021905805039)
+  desktop t100: blue_px=(3652, 208.35021905805039)
+  desktop t250: blue_px=(3652, 208.35021905805039)
+  desktop selection: {'text': '', 'count': 0, 'active': 'step__toggle'}
+
+=== mobile computed === {'tapHighlight': 'rgba(51, 181, 229, 0.4)', 'userSelect': 'auto', 'outline': 'rgb(27, 25, 23) none 0px', 'selectionBg': 'rgba(232, 83, 47, 0.22)'}
+  mobile down: blue_px=(0, 0)
+  mobile t0: blue_px=(0, 0)
+  mobile t40: blue_px=(0, 0)
+  mobile t100: blue_px=(0, 0)
+  mobile t250: blue_px=(0, 0)
+  mobile selection: {'text': '', 'count': 0, 'active': 'step__toggle'}
+
+Stderr: (empty)
+Exit Code: 0
+Signal: (none)
+```
+
+## Command
+
+```
+cd /workspace && python3 /tmp/diag_blue.py
+```
+
+## Output
+
+```
+Command: cd /workspace && python3 /tmp/diag_blue.py
+Stdout: (empty)
+Stderr: Traceback (most recent call last):
+  File "/tmp/diag_blue.py", line 74, in <module>
+    asyncio.run(main())
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/asyncio/base_events.py", line 653, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/tmp/diag_blue.py", line 70, in main
+    await probe(browser, "desktop", False)
+  File "/tmp/diag_blue.py", line 21, in probe
+    await page.goto(URL, wait_until="domcontentloaded")
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/playwright/async_api/_generated.py", line 9045, in goto
+    await self._impl_obj.goto(
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/playwright/_impl/_page.py", line 552, in goto
+    return await self._main_frame.goto(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/playwright/_impl/_frame.py", line 153, in goto
+    await self._channel.send(
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/playwright/_impl/_connection.py", line 69, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.11.1/lib/python3.11/site-packages/playwright/_impl/_connection.py", line 559, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.Error: Page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:4188/
+Call log:
+  - navigating to "http://127.0.0.1:4188/", waiting until "domcontentloaded"
+
+
+Exit Code: 1
+Signal: (none)
+```
